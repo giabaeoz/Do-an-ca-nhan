@@ -108,31 +108,65 @@ function renderCharts(courses, annotatedCourses) {
   if (canvasSemGPA) {
     if (semGPAChartInstance) semGPAChartInstance.destroy();
 
+    const ctxBar1 = canvasSemGPA.getContext('2d');
+    const gradBar1 = ctxBar1.createLinearGradient(0, 0, 0, canvasSemGPA.offsetHeight || 260);
+    gradBar1.addColorStop(0, 'rgba(2, 132, 199, 0.85)');
+    gradBar1.addColorStop(1, 'rgba(2, 132, 199, 0.35)');
+
+    const hasBar1 = semGPAData.length > 0;
+
     semGPAChartInstance = new window.Chart(canvasSemGPA, {
       type: 'bar',
       data: {
-        labels: semLabels.length > 0 ? semLabels : ['Chưa có dữ liệu'],
+        labels: hasBar1 ? semLabels : ['Chưa có dữ liệu'],
         datasets: [{
-          label: 'GPA Học kỳ (Hệ 4)',
-          data: semGPAData.length > 0 ? semGPAData : [0],
-          backgroundColor: 'rgba(2, 132, 199, 0.85)',
+          label: 'GPA học kỳ',
+          data: hasBar1 ? semGPAData : [0],
+          backgroundColor: gradBar1,
           borderColor: '#0284c7',
-          borderWidth: 1.5,
-          borderRadius: 6
+          borderWidth: 0,
+          borderRadius: 8,
+          borderSkipped: false
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
         scales: {
+          x: {
+            grid: { display: false },
+            border: { display: false },
+            ticks: { font: { size: 11, weight: '600' }, color: '#64748b', maxRotation: 30 }
+          },
           y: {
             min: 0,
             max: 4.0,
-            ticks: { stepSize: 0.5 }
+            border: { display: false, dash: [4, 4] },
+            grid: { color: 'rgba(148, 163, 184, 0.18)', drawTicks: false },
+            ticks: {
+              stepSize: 0.5,
+              font: { size: 11, weight: '600' },
+              color: '#64748b',
+              padding: 8,
+              callback: (v) => v.toFixed(1)
+            }
           }
         },
         plugins: {
-          legend: { display: false }
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(15, 23, 42, 0.88)',
+            titleColor: '#f8fafc',
+            bodyColor: '#cbd5e1',
+            borderColor: 'rgba(255,255,255,0.08)',
+            borderWidth: 1,
+            padding: 12,
+            cornerRadius: 10,
+            callbacks: {
+              label: (item) => `  GPA học kỳ: ${Number(item.raw).toFixed(2)}`
+            }
+          }
         }
       }
     });
@@ -143,83 +177,210 @@ function renderCharts(courses, annotatedCourses) {
   if (canvasCredits) {
     if (creditsChartInstance) creditsChartInstance.destroy();
 
+    const ctxBar2 = canvasCredits.getContext('2d');
+    const gradBar2 = ctxBar2.createLinearGradient(0, 0, 0, canvasCredits.offsetHeight || 260);
+    gradBar2.addColorStop(0, 'rgba(99, 102, 241, 0.85)');
+    gradBar2.addColorStop(1, 'rgba(99, 102, 241, 0.35)');
+
+    const hasBar2 = semCreditsData.length > 0;
+
     creditsChartInstance = new window.Chart(canvasCredits, {
       type: 'bar',
       data: {
-        labels: semLabels.length > 0 ? semLabels : ['Chưa có dữ liệu'],
+        labels: hasBar2 ? semLabels : ['Chưa có dữ liệu'],
         datasets: [{
-          label: 'Số Tín chỉ đạt',
-          data: semCreditsData.length > 0 ? semCreditsData : [0],
-          backgroundColor: '#6366f1',
-          borderColor: '#4f46e5',
-          borderWidth: 1.5,
-          borderRadius: 6
+          label: 'Tín chỉ đạt',
+          data: hasBar2 ? semCreditsData : [0],
+          backgroundColor: gradBar2,
+          borderColor: '#6366f1',
+          borderWidth: 0,
+          borderRadius: 8,
+          borderSkipped: false
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
         scales: {
+          x: {
+            grid: { display: false },
+            border: { display: false },
+            ticks: { font: { size: 11, weight: '600' }, color: '#64748b', maxRotation: 30 }
+          },
           y: {
             beginAtZero: true,
-            ticks: { stepSize: 5 }
+            border: { display: false, dash: [4, 4] },
+            grid: { color: 'rgba(148, 163, 184, 0.18)', drawTicks: false },
+            ticks: {
+              stepSize: 5,
+              font: { size: 11, weight: '600' },
+              color: '#64748b',
+              padding: 8
+            }
           }
         },
         plugins: {
-          legend: { display: false }
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: 'rgba(15, 23, 42, 0.88)',
+            titleColor: '#f8fafc',
+            bodyColor: '#cbd5e1',
+            borderColor: 'rgba(255,255,255,0.08)',
+            borderWidth: 1,
+            padding: 12,
+            cornerRadius: 10,
+            callbacks: {
+              label: (item) => `  Tín chỉ đạt: ${item.raw} TC`
+            }
+          }
         }
       }
     });
   }
 
-  // --- 3. Line Chart: Semester GPA Trend ---
+
+  // --- 3. Line Chart: Semester GPA Trend (Redesigned) ---
   const canvasTrend = document.getElementById('chart-gpa-trend');
   if (canvasTrend) {
     if (trendChartInstance) trendChartInstance.destroy();
 
+    const ctx = canvasTrend.getContext('2d');
+
+    // Gradient fill cho GPA hoc ky
+    const gradientSem = ctx.createLinearGradient(0, 0, 0, canvasTrend.offsetHeight || 260);
+    gradientSem.addColorStop(0, 'rgba(2, 132, 199, 0.22)');
+    gradientSem.addColorStop(1, 'rgba(2, 132, 199, 0)');
+
+    // Gradient fill cho GPA luy tien
+    const gradientCum = ctx.createLinearGradient(0, 0, 0, canvasTrend.offsetHeight || 260);
+    gradientCum.addColorStop(0, 'rgba(99, 102, 241, 0.12)');
+    gradientCum.addColorStop(1, 'rgba(99, 102, 241, 0)');
+
+    const hasData = semGPAData.length > 0;
+
     trendChartInstance = new window.Chart(canvasTrend, {
       type: 'line',
       data: {
-        labels: semLabels.length > 0 ? semLabels : ['Chưa có dữ liệu'],
+        labels: hasData ? semLabels : ['Chưa có dữ liệu'],
         datasets: [
           {
-            label: 'GPA Học kỳ (Hệ 4)',
-            data: semGPAData.length > 0 ? semGPAData : [0],
+            label: 'GPA học kỳ',
+            data: hasData ? semGPAData : [0],
             borderColor: '#0284c7',
-            backgroundColor: 'rgba(2, 132, 199, 0.1)',
+            backgroundColor: gradientSem,
             fill: true,
-            tension: 0.3,
-            borderWidth: 3,
-            pointRadius: 5
+            tension: 0.42,
+            borderWidth: 2.5,
+            pointBackgroundColor: '#0284c7',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2,
+            pointRadius: 5,
+            pointHoverRadius: 7,
+            pointHoverBackgroundColor: '#0284c7',
+            pointHoverBorderColor: '#ffffff',
+            pointHoverBorderWidth: 2.5
           },
           {
-            label: 'GPA Lũy tiến (Hệ 4)',
-            data: cumGPAData.length > 0 ? cumGPAData : [0],
+            label: 'GPA lũy tiến',
+            data: hasData ? cumGPAData : [0],
             borderColor: '#6366f1',
-            backgroundColor: 'transparent',
-            borderDash: [5, 5],
-            tension: 0.3,
+            backgroundColor: gradientCum,
+            fill: true,
+            tension: 0.42,
             borderWidth: 2,
-            pointRadius: 4
+            borderDash: [6, 3],
+            pointBackgroundColor: '#6366f1',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            pointHoverBackgroundColor: '#6366f1',
+            pointHoverBorderColor: '#ffffff',
+            pointHoverBorderWidth: 2
           }
         ]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        interaction: {
+          mode: 'index',
+          intersect: false
+        },
         scales: {
+          x: {
+            grid: {
+              display: false
+            },
+            border: {
+              display: false
+            },
+            ticks: {
+              font: { size: 11, weight: '600' },
+              color: '#64748b',
+              maxRotation: 30
+            }
+          },
           y: {
             min: 0,
             max: 4.0,
-            ticks: { stepSize: 0.5 }
+            border: {
+              display: false,
+              dash: [4, 4]
+            },
+            grid: {
+              color: 'rgba(148, 163, 184, 0.18)',
+              drawTicks: false
+            },
+            ticks: {
+              stepSize: 0.5,
+              font: { size: 11, weight: '600' },
+              color: '#64748b',
+              padding: 8,
+              callback: (v) => v.toFixed(1)
+            }
           }
         },
         plugins: {
-          legend: { position: 'bottom' }
+          legend: {
+            position: 'bottom',
+            align: 'center',
+            labels: {
+              usePointStyle: true,
+              pointStyle: 'circle',
+              padding: 20,
+              font: { size: 12, weight: '600' },
+              color: '#475569',
+              boxWidth: 8,
+              boxHeight: 8
+            }
+          },
+          tooltip: {
+            backgroundColor: 'rgba(15, 23, 42, 0.88)',
+            titleColor: '#f8fafc',
+            bodyColor: '#cbd5e1',
+            borderColor: 'rgba(255,255,255,0.08)',
+            borderWidth: 1,
+            padding: 12,
+            cornerRadius: 10,
+            displayColors: true,
+            boxWidth: 8,
+            boxHeight: 8,
+            usePointStyle: true,
+            callbacks: {
+              title: (items) => items[0]?.label || '',
+              label: (item) => {
+                const val = typeof item.raw === 'number' ? item.raw.toFixed(2) : item.raw;
+                return `  ${item.dataset.label}: ${val}`;
+              }
+            }
+          }
         }
       }
     });
   }
+
 
   // --- 4. Doughnut Chart: Grade Distribution ---
   const gradeCounts = { 'A': 0, 'B+': 0, 'B': 0, 'C+': 0, 'C': 0, 'D+': 0, 'D': 0, 'F': 0, 'M': 0 };
@@ -248,21 +409,67 @@ function renderCharts(courses, annotatedCourses) {
   if (canvasDist) {
     if (distChartInstance) distChartInstance.destroy();
 
+    const hasDist = distLabels.length > 0;
+    const total = distData.reduce((s, v) => s + v, 0);
+
     distChartInstance = new window.Chart(canvasDist, {
       type: 'doughnut',
       data: {
-        labels: distLabels.length > 0 ? distLabels : ['Chưa có môn đã chấm điểm'],
+        labels: hasDist ? distLabels : ['Chưa có dữ liệu'],
         datasets: [{
-          data: distData.length > 0 ? distData : [1],
-          backgroundColor: bgColors.length > 0 ? bgColors : ['#e2e8f0'],
-          borderWidth: 2
+          data: hasDist ? distData : [1],
+          backgroundColor: hasDist ? bgColors : ['#e2e8f0'],
+          borderColor: '#ffffff',
+          borderWidth: 2.5,
+          hoverBorderColor: '#ffffff',
+          hoverBorderWidth: 3,
+          hoverOffset: 6
         }]
       },
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        cutout: '68%',
         plugins: {
-          legend: { position: 'right' }
+          legend: {
+            position: 'right',
+            labels: {
+              usePointStyle: true,
+              pointStyle: 'circle',
+              padding: 14,
+              font: { size: 12, weight: '600' },
+              color: '#475569',
+              boxWidth: 9,
+              boxHeight: 9,
+              generateLabels: (chart) => {
+                const data = chart.data;
+                if (!data.labels.length) return [];
+                return data.labels.map((label, i) => ({
+                  text: `${label}  (${data.datasets[0].data[i]})`,
+                  fillStyle: data.datasets[0].backgroundColor[i],
+                  strokeStyle: data.datasets[0].backgroundColor[i],
+                  pointStyle: 'circle',
+                  index: i
+                }));
+              }
+            }
+          },
+          tooltip: {
+            backgroundColor: 'rgba(15, 23, 42, 0.88)',
+            titleColor: '#f8fafc',
+            bodyColor: '#cbd5e1',
+            borderColor: 'rgba(255,255,255,0.08)',
+            borderWidth: 1,
+            padding: 12,
+            cornerRadius: 10,
+            callbacks: {
+              label: (item) => {
+                const val = item.raw;
+                const pct = total > 0 ? ((val / total) * 100).toFixed(1) : 0;
+                return `  ${item.label}: ${val} môn (${pct}%)`;
+              }
+            }
+          }
         }
       }
     });

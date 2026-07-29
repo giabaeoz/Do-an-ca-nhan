@@ -175,7 +175,8 @@ function initClearData() {
       clearAllLocalData();
       showToast('Đã xóa toàn bộ dữ liệu cục bộ!', 'success');
       setTimeout(() => {
-        window.location.href = 'index.html';
+        const isSubFolder = window.location.pathname.includes('/pages/');
+        window.location.href = isSubFolder ? '../index.html' : 'index.html';
       }, 400);
     });
   }

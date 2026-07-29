@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html lang="vi" data-theme="light">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>TVU GPA Supporter - Trang chủ & Dashboard Thống kê</title>
-  <meta name="description" content="Hệ thống hỗ trợ tính điểm GPA, phân tích bảng điểm TVU Portal và biểu đồ thống kê cho sinh viên Đại học Trà Vinh.">
-  
-  <!-- CSS Stylesheets -->
+  <meta name="description"
+    content="Hệ thống hỗ trợ tính điểm GPA, phân tích bảng điểm TVU Portal và biểu đồ thống kê cho sinh viên Đại học Trà Vinh.">
+
+  <!-- Google Fonts & Style Assets -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/pages.css">
 
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
   <div class="app-shell">
@@ -20,60 +27,68 @@
     <!-- Desktop Sidebar Navigation -->
     <aside class="sidebar">
       <div class="sidebar-header">
-        <div class="logo-badge">TVU</div>
+        <img src="assets/images/logo.jpg" alt="TVU GPA Helper Logo" class="logo-img">
         <div class="logo-text">
-          <h1>GPA Supporter</h1>
+          <h1>GPA Helper</h1>
+          <p>Trà Vinh University</p>
         </div>
       </div>
 
       <nav class="sidebar-nav">
         <a href="index.html" class="nav-link active">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 001 1m-6 0h6"/>
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
           </svg>
           Trang chủ
         </a>
-        <a href="import.html" class="nav-link">
+        <a href="pages/import.html" class="nav-link">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
           </svg>
           Nhập điểm Portal
         </a>
-        <a href="grades.html" class="nav-link">
+        <a href="pages/grades.html" class="nav-link">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
           Bảng điểm chi tiết
         </a>
-        <a href="predict.html" class="nav-link">
+        <a href="pages/predict.html" class="nav-link">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 01-2 2h-4a2 2 0 01-2-2v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 01-2 2h-4a2 2 0 01-2-2v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
           </svg>
           Dự đoán GPA
         </a>
-        <a href="strategy.html" class="nav-link">
+        <a href="pages/strategy.html" class="nav-link">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
           Chiến lược GPA
         </a>
-        <a href="profile.html" class="nav-link">
+        <a href="pages/profile.html" class="nav-link">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
           </svg>
           Tài khoản Sinh viên
         </a>
-        <a href="settings.html" class="nav-link">
+        <a href="pages/settings.html" class="nav-link">
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
           </svg>
           Cài đặt & Sync
         </a>
       </nav>
 
       <div class="sidebar-footer">
-        <button type="button" class="btn btn-secondary theme-toggle-btn" style="width: 100%; justify-content: center; gap: 0.5rem; font-weight: 700;">
+        <button type="button" class="btn btn-secondary theme-toggle-btn"
+          style="width: 100%; justify-content: center; gap: 0.5rem; font-weight: 700;">
           🌓 Giao diện Tối/Sáng
         </button>
       </div>
@@ -83,32 +98,37 @@
     <nav class="bottom-dock">
       <a href="index.html" class="dock-item active">
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
         </svg>
         <span>Trang chủ</span>
       </a>
-      <a href="import.html" class="dock-item">
+      <a href="pages/import.html" class="dock-item">
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
         </svg>
         <span>Nhập điểm</span>
       </a>
-      <a href="grades.html" class="dock-item">
+      <a href="pages/grades.html" class="dock-item">
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
         <span>Bảng điểm</span>
       </a>
-      <a href="profile.html" class="dock-item">
+      <a href="pages/profile.html" class="dock-item">
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
         </svg>
         <span>Tài khoản</span>
       </a>
-      <a href="settings.html" class="dock-item">
+      <a href="pages/settings.html" class="dock-item">
         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
-          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
         </svg>
         <span>Cài đặt</span>
       </a>
@@ -118,15 +138,19 @@
     <main class="main-wrapper">
       <header class="top-bar">
         <div class="top-bar-title">
-          <h2>Dashboard Thống kê GPA TVU</h2>
+          <h2>Thống kê dữ liệu điểm sinh viên</h2>
         </div>
 
         <!-- Major Total Credits Configuration Header Input -->
         <div class="top-bar-actions">
-          <div style="display: flex; align-items: center; gap: 0.5rem; background: var(--bg-main); padding: 0.35rem 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
-            <label for="total-credits-input" style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted);">Tổng TC ngành:</label>
-            <input type="number" id="total-credits-input" class="form-input" min="50" max="250" value="150" style="width: 75px; padding: 0.2rem 0.4rem; text-align: center; font-weight: 800;">
-            <button id="btn-save-total-credits" class="btn btn-primary btn-sm" style="padding: 0.25rem 0.6rem;" title="Lưu số tín chỉ ngành">Lưu</button>
+          <div
+            style="display: flex; align-items: center; gap: 0.5rem; background: var(--bg-main); padding: 0.35rem 0.75rem; border-radius: var(--radius-md); border: 1px solid var(--border);">
+            <label for="total-credits-input"
+              style="font-size: 0.82rem; font-weight: 700; color: var(--text-muted);">Tổng TC ngành:</label>
+            <input type="number" id="total-credits-input" class="form-input" min="50" max="250" value="150"
+              style="width: 75px; padding: 0.2rem 0.4rem; text-align: center; font-weight: 800;">
+            <button id="btn-save-total-credits" class="btn btn-primary btn-sm" style="padding: 0.25rem 0.6rem;"
+              title="Lưu số tín chỉ ngành">Lưu</button>
           </div>
         </div>
       </header>
@@ -167,7 +191,9 @@
         <section class="progress-card">
           <div class="progress-header">
             <h3 style="font-weight: 800; font-size: 1.05rem; display: inline-flex; align-items: center; gap: 0.4rem;">
-              <svg class="svg-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+              <svg class="svg-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
               Tiến độ tín chỉ tích lũy toàn khóa
             </h3>
             <span id="progress-text" style="font-weight: 700; color: var(--primary);">0% (0/150 Tín chỉ)</span>
@@ -179,13 +205,18 @@
 
         <!-- Professional Chart.js Statistics Charts Grid Section -->
         <section style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem;">
-          
+
           <!-- ROW 1: Semester GPA Bar Chart + Grade Distribution Doughnut Chart -->
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
             <!-- Bar Chart Card: Semester GPA (Hệ 4) -->
             <div class="card">
-              <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.4rem;">
-                <svg class="svg-icon" style="color: var(--primary);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+              <h3
+                style="font-size: 1.05rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.4rem;">
+                <svg class="svg-icon" style="color: var(--primary);" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
                 Biểu đồ cột: GPA (Hệ 4) từng Học kỳ
               </h3>
               <div style="position: relative; height: 260px; width: 100%;">
@@ -195,11 +226,18 @@
 
             <!-- Doughnut Chart Card: Grade Distribution (Only Graded Courses) -->
             <div class="card">
-              <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.4rem;">
-                <svg class="svg-icon" style="color: var(--primary);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/><path stroke-linecap="round" stroke-linejoin="round" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"/></svg>
-                Tỷ lệ Phân bổ Điểm Chữ (Chỉ môn đã có điểm)
+              <h3
+                style="font-size: 1.05rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.4rem;">
+                <svg class="svg-icon" style="color: var(--primary);" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" />
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" />
+                </svg>
+                Tỷ lệ Phân bổ Điểm Chữ
               </h3>
-              <div style="position: relative; height: 260px; width: 100%;">
+              <div style="position: relative; height: 300px; width: 100%;">
                 <canvas id="chart-grade-dist"></canvas>
               </div>
             </div>
@@ -209,8 +247,12 @@
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
             <!-- Line Chart Card: Semester GPA Trend -->
             <div class="card">
-              <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.4rem;">
-                <svg class="svg-icon" style="color: var(--primary);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+              <h3
+                style="font-size: 1.05rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.4rem;">
+                <svg class="svg-icon" style="color: var(--primary);" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
                 Biến động GPA (Hệ 4) qua các Học kỳ
               </h3>
               <div style="position: relative; height: 260px; width: 100%;">
@@ -220,8 +262,13 @@
 
             <!-- Bar Chart Card: Credits Earned Per Semester -->
             <div class="card">
-              <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.4rem;">
-                <svg class="svg-icon" style="color: var(--primary);" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+              <h3
+                style="font-size: 1.05rem; font-weight: 800; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.4rem;">
+                <svg class="svg-icon" style="color: var(--primary);" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
                 Tín chỉ Tích lũy đạt được qua từng Học kỳ
               </h3>
               <div style="position: relative; height: 260px; width: 100%;">
@@ -232,14 +279,110 @@
 
         </section>
 
-
-
       </div>
     </main>
 
   </div>
 
+  <!-- ============================
+       Login Modal (Hiện khi vào trang, có thể đóng)
+       ============================ -->
+  <div id="login-gate" class="hidden">
+    <div class="login-gate-card">
+
+      <!-- Nút đóng -->
+      <button type="button" id="gate-close-btn" class="login-gate-close"
+        title="Đóng và dùng trang bình thường">✕</button>
+
+      <!-- Logo & Brand -->
+      <div class="login-gate-logo">
+        <img src="assets/images/logo.jpg" alt="TVU GPA Helper Logo">
+        <h2>GPA Helper</h2>
+        <p>Trà Vinh University</p>
+      </div>
+
+      <!-- Tab Switcher -->
+      <div class="login-gate-tabs">
+        <button type="button" class="login-gate-tab active" id="gate-tab-login">🔑 Đăng nhập</button>
+        <button type="button" class="login-gate-tab" id="gate-tab-register">📝 Đăng ký Mới</button>
+      </div>
+
+      <!-- Form Đăng nhập -->
+      <div id="gate-form-login" class="login-gate-form active">
+        <form id="gate-login-form" novalidate>
+          <div class="form-group">
+            <label class="form-label">MSSV / Email Sinh viên *</label>
+            <input type="text" id="gate-login-email" class="form-input"
+              placeholder="1100123456 hoặc email@st.tvu.edu.vn" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Mật khẩu *</label>
+            <input type="password" id="gate-login-password" class="form-input" placeholder="••••••••" required
+              minlength="6">
+          </div>
+          <button type="submit" id="gate-btn-login" class="login-gate-btn-primary">
+            🔑 Đăng nhập ngay
+          </button>
+        </form>
+
+        <div class="login-gate-divider">hoặc tiếp tục không cần tài khoản</div>
+
+        <button type="button" id="gate-btn-guest" class="login-gate-guest-btn">
+          👤 Dùng trang mà không cần đăng nhập
+        </button>
+      </div>
+
+      <!-- Form Đăng ký -->
+      <div id="gate-form-register" class="login-gate-form">
+        <form id="gate-register-form" novalidate>
+          <div class="login-gate-reg-grid">
+            <div class="form-group">
+              <label class="form-label">Họ và Tên *</label>
+              <input type="text" id="gate-reg-name" class="form-input" placeholder="Nguyễn Văn A" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">MSSV *</label>
+              <input type="text" id="gate-reg-username" class="form-input" placeholder="1100123456" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email Sinh viên *</label>
+              <input type="email" id="gate-reg-email" class="form-input" placeholder="email@st.tvu.edu.vn" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Lớp học</label>
+              <input type="text" id="gate-reg-class" class="form-input" placeholder="DA23CNTT">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Mật khẩu *</label>
+              <input type="password" id="gate-reg-password" class="form-input" placeholder="Tối thiểu 6 ký tự" required
+                minlength="6">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Xác nhận mật khẩu *</label>
+              <input type="password" id="gate-reg-confirm" class="form-input" placeholder="Nhập lại mật khẩu" required
+                minlength="6">
+            </div>
+          </div>
+          <div class="form-group" style="margin-top: 0.25rem;">
+            <label class="form-label">Chuyên ngành</label>
+            <input type="text" id="gate-reg-major" class="form-input" placeholder="Công nghệ thông tin">
+          </div>
+          <button type="submit" id="gate-btn-register" class="login-gate-btn-primary">
+            ⚡ Tạo Tài khoản Sinh viên
+          </button>
+        </form>
+
+        <button type="button" id="gate-btn-guest-reg" class="login-gate-guest-btn">
+          👤 Dùng trang mà không cần đăng nhập
+        </button>
+      </div>
+
+    </div>
+  </div>
+
   <script type="module" src="js/layout.js"></script>
   <script type="module" src="js/pages/index.js"></script>
+  <script type="module" src="js/auth-gate.js"></script>
 </body>
+
 </html>

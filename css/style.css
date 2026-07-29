@@ -148,18 +148,18 @@ textarea {
   border-bottom: 1px solid var(--border);
 }
 
-.logo-badge {
-  width: 42px;
-  height: 42px;
-  background: var(--brand-gradient);
-  color: white;
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 1.2rem;
-  box-shadow: var(--shadow-glow);
+.logo-img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px var(--primary-light), var(--shadow-glow);
+  transition: transform var(--transition-fast);
+}
+
+.logo-img:hover {
+  transform: scale(1.06);
 }
 
 .logo-text h1 {

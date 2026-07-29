@@ -14,14 +14,15 @@ document.addEventListener('DOMContentLoaded', () => {
  * Automatically highlight active link in Sidebar and Bottom Dock based on pathname
  */
 function initNavigationHighlight() {
-  const currentPath = window.location.pathname.toLowerCase();
+  const currentFilename = window.location.pathname.split('/').pop().toLowerCase() || 'index.html';
 
   const sidebarLinks = document.querySelectorAll('.sidebar-nav .nav-link');
   sidebarLinks.forEach(link => {
-    const href = link.getAttribute('href').toLowerCase();
+    const href = link.getAttribute('href');
     if (!href || href === '#') return;
+    const targetFilename = href.split('/').pop().toLowerCase();
 
-    if (currentPath.endsWith(href) || (href === 'index.html' && (currentPath.endsWith('/') || currentPath.endsWith('index.html')))) {
+    if (currentFilename === targetFilename || (targetFilename === 'index.html' && (currentFilename === '' || currentFilename === 'index.html'))) {
       link.classList.add('active');
     } else {
       link.classList.remove('active');
@@ -30,10 +31,11 @@ function initNavigationHighlight() {
 
   const dockItems = document.querySelectorAll('.bottom-dock .dock-item');
   dockItems.forEach(item => {
-    const href = item.getAttribute('href').toLowerCase();
+    const href = item.getAttribute('href');
     if (!href || href === '#') return;
+    const targetFilename = href.split('/').pop().toLowerCase();
 
-    if (currentPath.endsWith(href) || (href === 'index.html' && (currentPath.endsWith('/') || currentPath.endsWith('index.html')))) {
+    if (currentFilename === targetFilename || (targetFilename === 'index.html' && (currentFilename === '' || currentFilename === 'index.html'))) {
       item.classList.add('active');
     } else {
       item.classList.remove('active');
@@ -115,18 +117,12 @@ async function renderGlobalUserBadge() {
       }
     } else {
       badgeContainer.innerHTML = `
-        <button id="btn-open-global-login" class="btn btn-secondary btn-sm">🔑 Đăng nhập</button>
-        <button id="btn-open-global-register" class="btn btn-primary btn-sm">📝 Đăng ký Mới</button>
+        <button id="btn-open-global-auth" class="btn btn-primary btn-sm">🔑 Đăng nhập / Đăng ký</button>
       `;
 
-      const btnLogin = document.getElementById('btn-open-global-login');
-      const btnRegister = document.getElementById('btn-open-global-register');
-
-      if (btnLogin) {
-        btnLogin.addEventListener('click', () => openAuthModal('login'));
-      }
-      if (btnRegister) {
-        btnRegister.addEventListener('click', () => openAuthModal('register'));
+      const btnAuth = document.getElementById('btn-open-global-auth');
+      if (btnAuth) {
+        btnAuth.addEventListener('click', () => openAuthModal('login'));
       }
     }
   } catch (err) {
@@ -141,21 +137,17 @@ export function openAuthModal(mode = 'login') {
   const modal = document.getElementById('global-auth-modal');
   if (!modal) return;
 
-  const tabLogin = document.getElementById('g-tab-login');
+  const tabLogin    = document.getElementById('g-tab-login');
   const tabRegister = document.getElementById('g-tab-register');
-  const formLogin = document.getElementById('g-form-login');
-  const formRegister = document.getElementById('g-form-register');
+  const formLogin   = document.getElementById('g-form-login');
+  const formRegister= document.getElementById('g-form-register');
 
   if (mode === 'register') {
-    if (tabRegister) tabRegister.className = 'btn btn-primary btn-sm';
-    if (tabLogin) tabLogin.className = 'btn btn-secondary btn-sm';
-    if (formRegister) formRegister.style.display = 'block';
-    if (formLogin) formLogin.style.display = 'none';
+    tabRegister?.classList.add('active');    tabLogin?.classList.remove('active');
+    formRegister?.classList.add('active');  formLogin?.classList.remove('active');
   } else {
-    if (tabLogin) tabLogin.className = 'btn btn-primary btn-sm';
-    if (tabRegister) tabRegister.className = 'btn btn-secondary btn-sm';
-    if (formLogin) formLogin.style.display = 'block';
-    if (formRegister) formRegister.style.display = 'none';
+    tabLogin?.classList.add('active');      tabRegister?.classList.remove('active');
+    formLogin?.classList.add('active');     formRegister?.classList.remove('active');
   }
 
   modal.classList.add('active');
@@ -167,87 +159,82 @@ export function openAuthModal(mode = 'login') {
 function createGlobalAuthModal() {
   if (document.getElementById('global-auth-modal')) return;
 
+  const isInPages = window.location.pathname.includes('/pages/');
+  const logoPath  = isInPages ? '../assets/images/logo.jpg' : 'assets/images/logo.jpg';
+
   const modalHtml = `
     <div id="global-auth-modal" class="modal-backdrop">
-      <div class="modal-card" style="max-width: 600px; width: 92%; max-height: 90vh; overflow-y: auto;">
-        <div class="modal-header" style="display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); padding-bottom: 0.75rem; margin-bottom: 1rem;">
-          <div style="display: flex; gap: 0.5rem;">
-            <button id="g-tab-login" class="btn btn-primary btn-sm"> Đăng nhập</button>
-            <button id="g-tab-register" class="btn btn-secondary btn-sm"> Đăng ký Sinh viên Mới</button>
-          </div>
-          <button id="btn-close-global-auth" class="btn btn-secondary btn-sm" style="padding: 0.25rem 0.5rem;">✕</button>
+      <div class="login-gate-card" style="max-width: 500px; width: 92%; max-height: 90vh; overflow-y: auto; position: relative;">
+
+        <!-- Nut dong -->
+        <button id="btn-close-global-auth" class="login-gate-close" title="Dong">✕</button>
+
+        <!-- Logo & Brand -->
+        <div class="login-gate-logo">
+          <img src="${logoPath}" alt="TVU GPA Helper Logo" style="width: 96px; height: 96px;">
+          <h2>GPA Helper</h2>
+          <p>Trà Vinh University</p>
         </div>
 
-        <!-- Form 1: Modal Login -->
-        <form id="g-form-login">
-          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
-            Đăng nhập bằng Mã số Sinh viên (MSSV) hoặc Email để đồng bộ dữ liệu trực tuyến.
-          </p>
-          <div class="form-group">
-            <label class="form-label">Tên Đăng nhập / Mã SV (MSSV) hoặc Email *</label>
-            <input type="text" id="g-login-email" class="form-input" placeholder="" required>
-          </div>
+        <!-- Tab Switcher -->
+        <div class="login-gate-tabs">
+          <button id="g-tab-login" class="login-gate-tab active">🔑 Đăng nhập</button>
+          <button id="g-tab-register" class="login-gate-tab">📝 Đăng ký Mới</button>
+        </div>
 
+        <!-- Form 1: Dang nhap -->
+        <form id="g-form-login" class="login-gate-form active">
+          <div class="form-group">
+            <label class="form-label">MSSV / Email Sinh viên *</label>
+            <input type="text" id="g-login-email" class="form-input" placeholder="1100123456 hoặc email@st.tvu.edu.vn" required>
+          </div>
           <div class="form-group">
             <label class="form-label">Mật khẩu *</label>
             <input type="password" id="g-login-password" class="form-input" placeholder="••••••••" required minlength="6">
           </div>
-
-          <button type="submit" id="btn-g-submit-login" class="btn btn-primary" style="width: 100%; margin-top: 0.75rem;">
-             Đăng nhập ngay
+          <button type="submit" id="btn-g-submit-login" class="login-gate-btn-primary">
+            🔑 Đăng nhập ngay
           </button>
         </form>
 
-        <!-- Form 2: Modal Detailed Registration -->
-        <form id="g-form-register" style="display: none;">
-          <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 1rem;">
-            Tạo tài khoản sinh viên mới để tự động đồng bộ bảng điểm trực tuyến.
-          </p>
-
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem;">
+        <!-- Form 2: Dang ky -->
+        <form id="g-form-register" class="login-gate-form">
+          <div class="login-gate-reg-grid">
             <div class="form-group">
               <label class="form-label">Họ và Tên Sinh viên *</label>
-              <input type="text" id="g-reg-name" class="form-input" placeholder="Ví dụ: Nguyễn Văn A" required>
+              <input type="text" id="g-reg-name" class="form-input" placeholder="Nguyễn Văn A" required>
             </div>
-
             <div class="form-group">
-              <label class="form-label">Mã SV (MSSV) / Tên Đăng nhập *</label>
-              <input type="text" id="g-reg-username" class="form-input" placeholder="Ví dụ: 110123456" required>
+              <label class="form-label">MSSV / Tên Đăng nhập *</label>
+              <input type="text" id="g-reg-username" class="form-input" placeholder="1100123456" required>
             </div>
-
             <div class="form-group">
-              <label class="form-label">Email sinh viên *</label>
-              <input type="email" id="g-reg-email" class="form-input" placeholder="sinhvien@st.tvu.edu.vn" required>
+              <label class="form-label">Email Sinh viên *</label>
+              <input type="email" id="g-reg-email" class="form-input" placeholder="email@st.tvu.edu.vn" required>
             </div>
-
             <div class="form-group">
               <label class="form-label">Số điện thoại</label>
               <input type="tel" id="g-reg-phone" class="form-input" placeholder="0912345678">
             </div>
-
             <div class="form-group">
-              <label class="form-label">Mật khẩu đăng ký *</label>
+              <label class="form-label">Mật khẩu *</label>
               <input type="password" id="g-reg-password" class="form-input" placeholder="Tối thiểu 6 ký tự" required minlength="6">
             </div>
-
             <div class="form-group">
               <label class="form-label">Xác nhận Mật khẩu *</label>
               <input type="password" id="g-reg-confirm" class="form-input" placeholder="Nhập lại mật khẩu" required minlength="6">
             </div>
-
             <div class="form-group">
               <label class="form-label">Lớp học</label>
-              <input type="text" id="g-reg-class" class="form-input" placeholder="Ví dụ: DA....">
+              <input type="text" id="g-reg-class" class="form-input" placeholder="DA23CNTT">
             </div>
-
             <div class="form-group">
               <label class="form-label">Chuyên ngành</label>
-              <input type="text" id="g-reg-major" class="form-input" placeholder="Nhập ngành của bạn">
+              <input type="text" id="g-reg-major" class="form-input" placeholder="Công nghệ thông tin">
             </div>
           </div>
-
-          <button type="submit" id="btn-g-submit-register" class="btn btn-primary" style="width: 100%; margin-top: 1.25rem; font-size: 0.95rem; padding: 0.65rem;">
-             Tạo Tài khoản Sinh viên Mới
+          <button type="submit" id="btn-g-submit-register" class="login-gate-btn-primary" style="margin-top: 1rem;">
+            ⚡ Tạo Tài khoản Sinh viên Mới
           </button>
         </form>
 
@@ -268,6 +255,21 @@ function createGlobalAuthModal() {
   if (btnClose && modal) {
     btnClose.addEventListener('click', () => modal.classList.remove('active'));
   }
+
+  // Click ngoai card (backdrop) de dong
+  if (modal) {
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) modal.classList.remove('active');
+    });
+  }
+
+  // Phim ESC de dong
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const m = document.getElementById('global-auth-modal');
+      if (m) m.classList.remove('active');
+    }
+  });
 
   if (tabLogin && tabRegister) {
     tabLogin.addEventListener('click', () => openAuthModal('login'));
