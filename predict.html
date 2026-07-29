@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Dự đoán GPA & Giả lập Bảng điểm - TVU GPA Supporter</title>
+  <meta name="description"
+    content="Công cụ dự đoán GPA học kỳ và lũy tiến bằng cách giả lập điểm số từng môn học mà không làm thay đổi bảng điểm chính thức.">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- Desktop Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-badge">TVU</div>
+        <div class="logo-text">
+          <h1>GPA Supporter</h1>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="index.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          Trang chủ
+        </a>
+        <a href="import.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+          </svg>
+          Nhập điểm Portal
+        </a>
+        <a href="grades.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          Bảng điểm chi tiết
+        </a>
+        <a href="predict.html" class="nav-link active">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 01-2 2h-4a2 2 0 01-2-2v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+          </svg>
+          Dự đoán GPA
+        </a>
+        <a href="strategy.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          Chiến lược GPA
+        </a>
+        <a href="profile.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          Tài khoản Sinh viên
+        </a>
+        <a href="settings.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          Cài đặt & Sync
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button type="button" class="btn btn-secondary theme-toggle-btn" style="width: 100%; justify-content: center; gap: 0.5rem; font-weight: 700;">
+          🌓 Giao diện Tối/Sáng
+        </button>
+      </div>
+    </aside>
+
+    <!-- Mobile Bottom Navigation Dock -->
+    <nav class="bottom-dock">
+      <a href="index.html" class="dock-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        <span>Trang chủ</span>
+      </a>
+      <a href="grades.html" class="dock-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        <span>Bảng điểm</span>
+      </a>
+      <a href="predict.html" class="dock-item active">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 01-2 2h-4a2 2 0 01-2-2v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+        </svg>
+        <span>Dự đoán</span>
+      </a>
+      <a href="profile.html" class="dock-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+        <span>Tài khoản</span>
+      </a>
+      <a href="settings.html" class="dock-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <span>Cài đặt</span>
+      </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-wrapper">
+      <header class="top-bar">
+        <div class="top-bar-title">
+          <h2>Dự đoán GPA & Giả lập điểm Học kỳ</h2>
+        </div>
+        <div class="top-bar-actions"></div>
+      </header>
+
+      <div class="content-container">
+
+        <!-- Sleek Single Header Card with Integrated Semester Selector Dropdown -->
+        <section class="card" style="margin-bottom: 1.5rem; border-radius: var(--radius-lg); padding: 1.25rem 1.5rem; background: linear-gradient(135deg, rgba(2,132,199,0.06), rgba(99,102,241,0.04)); border: 1px solid rgba(2,132,199,0.2);">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.25rem;">
+            
+            <!-- Left KPI Info -->
+            <div>
+              <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+                <span class="badge badge-primary" style="font-weight: 700; display: inline-flex; align-items: center; gap: 0.3rem;">
+                  <svg class="svg-icon" style="width: 0.9rem; height: 0.9rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 01-2 2h-4a2 2 0 01-2-2v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+                  Bảng điểm Giả lập (Sandbox)
+                </span>
+                <span style="font-size: 0.82rem; color: var(--text-muted);">Bản nháp độc lập • Không đổi điểm thật</span>
+              </div>
+
+              <div style="display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; margin-top: 0.25rem;">
+                <span style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">GPA Tích lũy Dự đoán:</span>
+                <div style="font-size: 2.2rem; font-weight: 900; color: var(--primary); line-height: 1;" id="predict-new-gpa">0.00</div>
+                <span id="predict-gpa-diff-pill" class="badge badge-success" style="font-size: 0.88rem; font-weight: 800; padding: 0.3rem 0.6rem;">+0.00 GPA</span>
+              </div>
+
+              <div style="font-size: 0.84rem; color: var(--text-muted); margin-top: 0.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+                <span>GPA Thực tế gốc: <b id="predict-real-gpa" style="color: var(--text-main);">0.00</b></span>
+                <span>•</span>
+                <span>Tín chỉ tích lũy: <b id="predict-new-credits" style="color: var(--text-main);">0 / 150 TC</b></span>
+              </div>
+            </div>
+
+            <!-- Right Controls: Single Clean Semester Dropdown & Action Buttons -->
+            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 0.75rem;">
+              <div style="display: flex; align-items: center; gap: 0.5rem; width: 100%;">
+                <label style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); white-space: nowrap; display: inline-flex; align-items: center; gap: 0.3rem;">
+                  <svg class="svg-icon" style="width: 0.95rem; height: 0.95rem;" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+                  Học kỳ:
+                </label>
+                <select id="predict-semester-select" class="form-input" style="font-weight: 700; padding: 0.45rem 0.75rem; font-size: 0.9rem; min-width: 240px; cursor: pointer; border: 2px solid var(--primary);">
+                  <!-- Injected dynamically via JS -->
+                </select>
+              </div>
+
+              <div style="display: flex; gap: 0.5rem; width: 100%;">
+                <button id="btn-add-predict-course" class="btn btn-primary btn-sm" style="font-weight: 700; flex: 1; display: inline-flex; align-items: center; justify-content: center;">
+                  <svg class="svg-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+                  Thêm môn mới
+                </button>
+                <button id="btn-reset-predict" class="btn btn-secondary btn-sm" style="font-weight: 700; display: inline-flex; align-items: center; justify-content: center;">
+                  <svg class="svg-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                  Reset điểm gốc
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Dynamic Grouped Semesters Container -->
+        <div id="predict-semesters-container">
+          <!-- Semester tables injected dynamically via js/pages/predict.js -->
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Add Course Modal for Predict Page -->
+  <div id="modal-add-predict-course" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">➕ Thêm Môn học Dự đoán Mới</h3>
+        <button id="btn-close-predict-modal" class="btn btn-secondary btn-sm" style="padding: 0.2rem 0.5rem;">✕</button>
+      </div>
+
+      <form id="form-add-predict-course">
+        <div class="form-group">
+          <label class="form-label">Chọn Học kỳ *</label>
+          <select id="modal-predict-sem" class="form-input" required>
+            <option value="Học kỳ 1 - 2024-2025">Học kỳ 1 - 2024-2025</option>
+            <option value="Học kỳ 2 - 2024-2025">Học kỳ 2 - 2024-2025</option>
+            <option value="Học kỳ 1 - 2025-2026">Học kỳ 1 - 2025-2026</option>
+            <option value="Học kỳ 2 - 2025-2026">Học kỳ 2 - 2025-2026</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Mã môn học</label>
+          <input type="text" id="modal-predict-code" class="form-input" placeholder="Ví dụ: 110099">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Tên môn học *</label>
+          <input type="text" id="modal-predict-name" class="form-input" placeholder="Ví dụ: Thực tập tốt nghiệp"
+            required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Số tín chỉ *</label>
+            <input type="number" id="modal-predict-credits" class="form-input" value="3" min="1" max="10" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Điểm 10 dự đoán *</label>
+            <input type="number" id="modal-predict-score" class="form-input" value="8.5" min="0" max="10" step="0.1"
+              required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">⚡ Thêm vào bảng dự
+          đoán</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="js/layout.js"></script>
+  <script type="module" src="js/pages/predict.js"></script>
+</body>
+
+</html>

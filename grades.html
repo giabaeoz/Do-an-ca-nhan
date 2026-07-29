@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>TVU GPA Supporter - Bảng điểm chi tiết</title>
+  <meta name="description"
+    content="Quản lý chi tiết bảng điểm, tính điểm lũy tiến từng học kỳ cho sinh viên Đại học Trà Vinh.">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- Desktop Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="logo-badge">TVU</div>
+        <div class="logo-text">
+          <h1>GPA Supporter</h1>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <a href="index.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+          </svg>
+          Trang chủ
+        </a>
+        <a href="import.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+          </svg>
+          Nhập điểm Portal
+        </a>
+        <a href="grades.html" class="nav-link active">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          Bảng điểm chi tiết
+        </a>
+        <a href="predict.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 01-2 2h-4a2 2 0 01-2-2v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+          </svg>
+          Dự đoán GPA
+        </a>
+        <a href="strategy.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          Chiến lược GPA
+        </a>
+        <a href="profile.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          Tài khoản Sinh viên
+        </a>
+        <a href="settings.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          Cài đặt & Sync
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button type="button" class="btn btn-secondary theme-toggle-btn" style="width: 100%; justify-content: center; gap: 0.5rem; font-weight: 700;">
+          🌓 Giao diện Tối/Sáng
+        </button>
+      </div>
+    </aside>
+
+    <!-- Mobile Bottom Dock Navigation -->
+    <nav class="bottom-dock">
+      <a href="index.html" class="dock-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+        </svg>
+        <span>Trang chủ</span>
+      </a>
+      <a href="import.html" class="dock-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+        </svg>
+        <span>Nhập điểm</span>
+      </a>
+      <a href="grades.html" class="dock-item active">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        <span>Bảng điểm</span>
+      </a>
+      <a href="profile.html" class="dock-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+        <span>Tài khoản</span>
+      </a>
+      <a href="settings.html" class="dock-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <span>Cài đặt</span>
+      </a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-wrapper">
+      <header class="top-bar">
+        <div class="top-bar-title">
+          <h2>Bảng điểm chi tiết & Điểm tích lũy</h2>
+        </div>
+        <div class="top-bar-actions">
+          <button id="btn-add-course" class="btn btn-primary btn-sm">➕ Thêm môn học thủ công</button>
+        </div>
+      </header>
+
+      <div class="content-container">
+
+        <!-- Semester Filter Controls -->
+        <div class="grades-controls">
+          <div id="semester-tabs" class="semester-tabs">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Detailed Transcript Semester Cards Container -->
+        <div id="grades-container" class="grades-container">
+          <!-- Rendered by JS -->
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Course Add/Edit Modal Dialog -->
+  <div id="course-modal" class="modal-backdrop">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-title-text" class="modal-title">Thêm môn học</h3>
+        <button id="btn-close-modal" class="btn btn-secondary btn-sm" style="padding: 0.2rem 0.5rem;">✕</button>
+      </div>
+      <form id="course-form">
+        <input type="hidden" id="course-id">
+
+        <div class="form-group">
+          <label class="form-label">Tên môn học *</label>
+          <input type="text" id="course-name" class="form-input" placeholder="Ví dụ: Cấu trúc dữ liệu và giải thuật"
+            required>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Mã môn học</label>
+            <input type="text" id="course-code" class="form-input" placeholder="Ví dụ: 110005">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Số tín chỉ</label>
+            <input type="number" id="course-credits" class="form-input" min="1" max="15" value="3" required>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Điểm Chữ</label>
+            <select id="course-letter" class="form-select">
+              <option value="A">A (4.0)</option>
+              <option value="B+">B+ (3.5)</option>
+              <option value="B" selected>B (3.0)</option>
+              <option value="C+">C+ (2.5)</option>
+              <option value="C">C (2.0)</option>
+              <option value="D+">D+ (1.5)</option>
+              <option value="D">D (1.0)</option>
+              <option value="F">F (0.0 - Nợ môn)</option>
+              <option value="M">M (Miễn HP - Không tính GPA)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Điểm Hệ 10 (Tùy chọn)</label>
+            <input type="number" id="course-score10" class="form-input" step="0.1" min="0" max="10" placeholder="8.5">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Học kỳ</label>
+          <input type="text" id="course-semester" class="form-input" placeholder="Học kỳ 1 - 2023-2024"
+            value="Học kỳ 1">
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+          <button type="submit" class="btn btn-primary">Lưu thông tin</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script type="module" src="js/layout.js"></script>
+  <script type="module" src="js/pages/grades.js"></script>
+</body>
+
+</html>
