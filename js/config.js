@@ -16,17 +16,17 @@ export const CONFIG = {
   DEFAULT_TOTAL_CREDITS: 150,
   STORAGE_KEY_COURSES: 'tvu_gpa_courses_v1',
   STORAGE_KEY_SETTINGS: 'tvu_gpa_settings_v1',
-  
+
   // TVU Academic Grade Scale Standards
   GRADE_SCALE: [
-    { min10: 9.0, max10: 10.0, letter: 'A',  scale4: 4.0, description: 'Xuất sắc' },
-    { min10: 8.0, max10: 8.9,  letter: 'B+', scale4: 3.5, description: 'Giỏi' },
-    { min10: 7.0, max10: 7.9,  letter: 'B',  scale4: 3.0, description: 'Khá giỏi' },
-    { min10: 6.5, max10: 6.9,  letter: 'C+', scale4: 2.5, description: 'Khá' },
-    { min10: 5.5, max10: 6.4,  letter: 'C',  scale4: 2.0, description: 'Trung bình khá' },
-    { min10: 5.0, max10: 5.4,  letter: 'D+', scale4: 1.5, description: 'Trung bình' },
-    { min10: 4.0, max10: 4.9,  letter: 'D',  scale4: 1.0, description: 'Trung bình yếu' },
-    { min10: 0.0, max10: 3.9,  letter: 'F',  scale4: 0.0, description: 'Kém (Nợ môn)' },
+    { min10: 9.0, max10: 10.0, letter: 'A', scale4: 4.0, description: 'Xuất sắc' },
+    { min10: 8.0, max10: 8.9, letter: 'B+', scale4: 3.5, description: 'Giỏi' },
+    { min10: 7.0, max10: 7.9, letter: 'B', scale4: 3.0, description: 'Khá giỏi' },
+    { min10: 6.5, max10: 6.9, letter: 'C+', scale4: 2.5, description: 'Khá' },
+    { min10: 5.5, max10: 6.4, letter: 'C', scale4: 2.0, description: 'Trung bình khá' },
+    { min10: 5.0, max10: 5.4, letter: 'D+', scale4: 1.5, description: 'Trung bình' },
+    { min10: 4.0, max10: 4.9, letter: 'D', scale4: 1.0, description: 'Trung bình yếu' },
+    { min10: 0.0, max10: 3.9, letter: 'F', scale4: 0.0, description: 'Kém (Nợ môn)' },
   ],
 
   SPECIAL_GRADES: {

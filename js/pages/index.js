@@ -2,9 +2,10 @@
    TVU GPA Supporter - Home Dashboard Controller (js/pages/index.js)
    ========================================================================== */
 
-import { getLocalCourses, showToast } from '../api.js';
+import { getLocalCourses, showToast, getCurrentUser } from '../api.js';
 import { calculateTVUGPA, calculateSemesterSummaries, calculateSimulatedGPA } from '../calculator.js';
 import { getTotalRequiredCredits, setTotalRequiredCredits } from '../config.js';
+import { openAuthModal } from '../layout.js';
 
 let semGPAChartInstance = null;
 let creditsChartInstance = null;
@@ -18,6 +19,18 @@ document.addEventListener('DOMContentLoaded', () => {
   renderDashboard();
   initWhatIfCalculator();
 });
+
+// Robust auto-popup for login gate
+setTimeout(async () => {
+  try {
+    const user = await getCurrentUser();
+    if (!user || !user.email) {
+      openAuthModal('login');
+    }
+  } catch (e) {
+    openAuthModal('login');
+  }
+}, 600);
 
 /**
  * Initialize Major Total Credits Input & Save Handler

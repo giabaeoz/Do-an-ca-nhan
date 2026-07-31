@@ -145,6 +145,8 @@ function initBackupRestore() {
       const file = e.target.files[0];
       if (!file) return;
 
+      window.showGlobalLoader('Đang khôi phục dữ liệu...');
+
       const reader = new FileReader();
       reader.onload = async (event) => {
         try {
@@ -158,6 +160,8 @@ function initBackupRestore() {
           }
         } catch (err) {
           showToast(`Lỗi nhập tập tin: ${err.message}`, 'danger');
+        } finally {
+          window.hideGlobalLoader();
         }
       };
       reader.readAsText(file);
@@ -172,12 +176,19 @@ function initClearData() {
   const btnReset = document.getElementById('btn-reset-data');
   if (btnReset) {
     btnReset.addEventListener('click', () => {
-      clearAllLocalData();
-      showToast('Đã xóa toàn bộ dữ liệu cục bộ!', 'success');
-      setTimeout(() => {
-        const isSubFolder = window.location.pathname.includes('/pages/');
-        window.location.href = isSubFolder ? '../index.html' : 'index.html';
-      }, 400);
+      window.showConfirmDialog('Xóa dữ liệu', 'Bạn có chắc chắn muốn xóa toàn bộ dữ liệu cục bộ? Thao tác này không thể hoàn tác!', () => {
+        window.showGlobalLoader('Đang xóa dữ liệu...');
+        try {
+          clearAllLocalData();
+          showToast('Đã xóa toàn bộ dữ liệu cục bộ!', 'success');
+          setTimeout(() => {
+            const isSubFolder = window.location.pathname.includes('/pages/');
+            window.location.href = isSubFolder ? '../index.html' : 'index.html';
+          }, 400);
+        } finally {
+          window.hideGlobalLoader();
+        }
+      });
     });
   }
 }

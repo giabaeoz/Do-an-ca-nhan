@@ -57,7 +57,7 @@ export function parseSemesterYear(semStr) {
   if (!semStr) return { year: 0, semNum: 0 };
   const yearMatch = semStr.match(/Năm học\s*(\d{4})/i) || semStr.match(/(\d{4})\s*-\s*\d{4}/);
   const year = yearMatch ? parseInt(yearMatch[1]) : 0;
-  
+
   const semMatch = semStr.match(/(Học k[ỳy]|HK)\s*(\d+)/i);
   const semNum = semMatch ? parseInt(semMatch[2]) : 0;
 
@@ -123,7 +123,7 @@ export function calculateTVUGPA(courses = []) {
     const isNonGPA = isNonGPACourse(c);
     const hasGrade = (c.letter && c.letter !== '') || (c.score10 !== null && c.score10 !== undefined);
     const scale4 = isExempt ? null : (hasGrade ? (letterToScale4(c.letter) ?? (c.score10 !== null ? convertGrade10To4(c.score10).scale4 : 0)) : null);
-    
+
     // Ensure Soft Skills credits are 0.67
     let credits = Number(c.credits) || 0;
     if (isSoftSkillCourse(c)) {
@@ -359,7 +359,7 @@ export function calculateSimulatedGPA(currentTotalCredits = 0, currentGPA4 = 0, 
       if (credits > 0 && score10 !== null) {
         const grade4Obj = convertGrade10To4(score10);
         const scale4 = grade4Obj ? grade4Obj.scale4 : 0;
-        
+
         // Include in GPA calculation if scale4 >= 1.0 (Passed)
         if (scale4 >= 1.0) {
           addedCredits += credits;

@@ -30,7 +30,7 @@ export function getStudentProfile() {
     major: '',
     faculty: 'Trường Kỹ thuật và Công nghệ - ĐH Trà Vinh',
     years: '2022 - 2026',
-    avatar: '🎓'
+    avatar: '<i class="ph-fill ph-graduation-cap"></i>'
   };
 }
 
@@ -54,11 +54,11 @@ async function loadProfileData() {
       faculty: meta.faculty || profile.faculty || 'Trường Kỹ thuật và Công nghệ - ĐH Trà Vinh',
       years: meta.years || profile.years || '2022 - 2026',
       email: user.email,
-      avatar: '🎓'
+      avatar: '<i class="ph-fill ph-graduation-cap"></i>'
     };
     try {
       localStorage.setItem(STORAGE_KEY_PROFILE, JSON.stringify(profile));
-    } catch (e) {}
+    } catch (e) { }
   }
 
   const elDisplayName = document.getElementById('profile-display-name');
@@ -120,7 +120,7 @@ function initProfileForm() {
       major,
       faculty,
       years,
-      avatar: '🎓'
+      avatar: '<i class="ph-fill ph-graduation-cap"></i>'
     };
 
     try {
@@ -152,10 +152,10 @@ async function initAuthAccount() {
   const formPass = document.getElementById('password-change-form');
 
   if (user) {
-    if (elCloudEmail) elCloudEmail.textContent = `⚡ Email Cloud: ${user.email}`;
+    if (elCloudEmail) elCloudEmail.innerHTML = `<i class="ph-bold ph-lightning"></i> Email Cloud: ${user.email}`;
     if (elCloudBadge) {
       elCloudBadge.className = 'badge badge-success';
-      elCloudBadge.textContent = '🟢 Đã kết nối Supabase Cloud Sync';
+      elCloudBadge.innerHTML = '<i class="ph-bold ph-check-circle" style="color:var(--success)"></i> Đã kết nối Supabase Cloud Sync';
     }
     if (btnLogout) {
       btnLogout.style.display = 'inline-flex';
@@ -166,10 +166,10 @@ async function initAuthAccount() {
       });
     }
   } else {
-    if (elCloudEmail) elCloudEmail.textContent = '💡 Email Cloud: Chưa đăng nhập (Chế độ lưu Cục bộ)';
+    if (elCloudEmail) elCloudEmail.innerHTML = '<i class="ph-bold ph-lightbulb"></i> Email Cloud: Chưa đăng nhập (Chế độ lưu Cục bộ)';
     if (elCloudBadge) {
       elCloudBadge.className = 'badge badge-secondary';
-      elCloudBadge.textContent = '☁️ Chế độ Khách (Lưu LocalStorage)';
+      elCloudBadge.innerHTML = '<i class="ph-bold ph-cloud"></i> Chế độ Khách (Lưu LocalStorage)';
     }
     if (btnLogout) btnLogout.style.display = 'none';
   }

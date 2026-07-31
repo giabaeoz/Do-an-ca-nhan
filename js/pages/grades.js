@@ -5,7 +5,13 @@ let allCourses = [];
 let activeSemesterFilter = 'ALL';
 
 document.addEventListener('DOMContentLoaded', async () => {
-  allCourses = await fetchGrades();
+  try {
+    allCourses = await fetchGrades();
+  } catch (err) {
+    console.error(err);
+    showToast('Lỗi tải dữ liệu máy chủ, dùng dữ liệu nội bộ.', 'danger');
+    allCourses = getLocalCourses();
+  }
   renderGradesPage();
   initCourseModal();
 });
@@ -28,7 +34,7 @@ function renderSemesterTabs(courses) {
 
   const rawSemesters = Array.from(new Set(courses.map(c => c.semester || 'Học kỳ 1')));
   const semesters = sortSemestersNewestFirst(rawSemesters);
-  
+
   container.innerHTML = `
     <button class="semester-tab ${activeSemesterFilter === 'ALL' ? 'active' : ''}" data-sem="ALL">Tất cả học kỳ</button>
     ${semesters.map(sem => `
@@ -60,8 +66,8 @@ function renderGradesTable(courses) {
     return;
   }
 
-  const filtered = activeSemesterFilter === 'ALL' 
-    ? courses 
+  const filtered = activeSemesterFilter === 'ALL'
+    ? courses
     : courses.filter(c => (c.semester || 'Học kỳ 1') === activeSemesterFilter);
 
   const semesterSummaries = calculateSemesterSummaries(filtered);
@@ -72,7 +78,7 @@ function renderGradesTable(courses) {
       <div class="semester-card">
         <div class="semester-card-header">
           <div class="sem-header-title">
-            <span class="sem-icon">📅</span>
+            <span class="sem-icon"><i class="ph-bold ph-calendar-blank"></i></span>
             <h3>${summary.semester}</h3>
           </div>
           <span class="sem-course-count">${summary.courses.length} môn học</span>
@@ -122,8 +128,8 @@ function renderGradesTable(courses) {
           <td class="col-letter"><b>${c.letter || '-'}</b> ${scale4 !== '-' ? `(${scale4})` : ''}</td>
           <td class="col-status">${statusBadge}</td>
           <td class="col-actions">
-            <button class="btn btn-secondary btn-sm btn-icon btn-edit-course" data-id="${c.id}" title="Sửa">✏️</button>
-            <button class="btn btn-secondary btn-sm btn-icon btn-delete-course" data-id="${c.id}" title="Xóa" style="color: var(--danger);">🗑️</button>
+            <button class="btn btn-secondary btn-sm btn-icon btn-edit-course" data-id="${c.id}" title="Sửa"><i class="ph-bold ph-pencil-simple"></i></button>
+            <button class="btn btn-secondary btn-sm btn-icon btn-delete-course" data-id="${c.id}" title="Xóa" style="color: var(--danger);"><i class="ph-bold ph-trash"></i></button>
           </td>
         </tr>
       `;
@@ -177,7 +183,8 @@ function renderGradesTable(courses) {
     `;
   });
 
-  container.innerHTML = html;
+  container.innerHTML = '';
+  container.insertAdjacentHTML('beforeend', html);
 
   container.querySelectorAll('.btn-edit-course').forEach(btn => {
     btn.addEventListener('click', () => editCourse(btn.getAttribute('data-id')));
@@ -247,11 +254,29 @@ function initCourseModal() {
         });
       }
 
-      // Auto-sync to Supabase & LocalStorage
-      await saveGrades(allCourses);
-      showToast('Đã lưu môn học thành công!', 'success');
-      modal.classList.remove('active');
-      renderGradesPage();
+      const btnSubmit = form.querySelector('button[type="submit"]');
+      if (btnSubmit) {
+        btnSubmit.disabled = true;
+        btnSubmit.innerHTML = `<span class="spinner" style="width: 14px; height: 14px; border-width: 2px;"></span> Đang lưu...`;
+      }
+
+      try {
+        // Auto-sync to Supabase & LocalStorage
+        await saveGrades(allCourses);
+        showToast('Đã lưu môn học thành công!', 'success');
+        modal.classList.remove('active');
+        renderGradesPage();
+      } catch (err) {
+        console.error(err);
+        showToast(err.message || 'Có lỗi xảy ra khi lưu!', 'danger');
+        // Rollback on fail if it was an add operation by popping the last element
+        if (!id) allCourses.pop();
+      } finally {
+        if (btnSubmit) {
+          btnSubmit.disabled = false;
+          btnSubmit.innerHTML = `Lưu môn học`;
+        }
+      }
     });
   }
 }
@@ -273,8 +298,15 @@ function editCourse(id) {
 }
 
 async function deleteCourse(id) {
+  const originalCourses = [...allCourses];
   allCourses = allCourses.filter(c => c.id !== id);
-  await saveGrades(allCourses);
-  showToast('Đã xóa môn học!', 'success');
-  renderGradesPage();
+  try {
+    await saveGrades(allCourses);
+    showToast('Đã xóa môn học!', 'success');
+    renderGradesPage();
+  } catch (err) {
+    console.error(err);
+    showToast(err.message || 'Lỗi khi xóa môn học!', 'danger');
+    allCourses = originalCourses; // rollback
+  }
 }

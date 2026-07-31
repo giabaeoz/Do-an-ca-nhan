@@ -14,12 +14,12 @@ export function parseTVUPortalText(rawText) {
 
   const lines = rawText.split(/\r?\n/).map(line => line.trim()).filter(line => line.length > 0);
   const parsedCourses = [];
-  
+
   let currentSemester = 'Học kỳ 1';
 
   const HEADER_NOISE = [
-    'STT', 'MÃ HỌC PHẦN', 'TÊN HỌC PHẦN', 'SỐ TÍN CHỈ', 'SỐ TC', 
-    'ĐIỂM THI', 'ĐIỂM TỔNG KẾT', 'ĐIỂM CHỮ', 'ĐIỂM HỆ 4', 'ĐIỂM HỆ 10', 
+    'STT', 'MÃ HỌC PHẦN', 'TÊN HỌC PHẦN', 'SỐ TÍN CHỈ', 'SỐ TC',
+    'ĐIỂM THI', 'ĐIỂM TỔNG KẾT', 'ĐIỂM CHỮ', 'ĐIỂM HỆ 4', 'ĐIỂM HỆ 10',
     'TRANG CHỦ', 'TRẠNG THÁI', 'GHI CHÚ', 'ĐẠI HỌC TRÀ VINH', 'TVU'
   ];
 
@@ -239,7 +239,7 @@ function extractCourseFromSpacedLine(line, semester) {
 
     if (/^\d+(\.\d+)?$/.test(tok)) {
       const tokensAfter = rawTokens.slice(k + 1).filter(Boolean);
-      const allAfterAreGrades = tokensAfter.every(t => 
+      const allAfterAreGrades = tokensAfter.every(t =>
         /^(A|B\+|B|C\+|C|D\+|D|F|M|P)$/i.test(t) || (/^\d+(\.\d+)?$/.test(t) && parseFloat(t) <= 10.0)
       );
 

@@ -36,7 +36,7 @@ function initImportUI() {
           showToast('Không nhận diện được môn học. Vui lòng kiểm tra lại văn bản dán!', 'danger');
         } else {
           await saveGrades(parsed);
-          showToast(`⚡ Đã phân tích và lưu thành công ${parsed.length} môn học vào Supabase & hệ thống!`, 'success');
+          showToast(`<i class="ph-bold ph-lightning"></i> Đã phân tích và lưu thành công ${parsed.length} môn học vào Supabase & hệ thống!`, 'success');
           textarea.value = '';
           renderImportedSummary();
         }

@@ -35,7 +35,7 @@ export function saveLocalCourses(courses) {
  */
 export function appendCourses(newCourses) {
   const current = getLocalCourses();
-  
+
   const formatted = newCourses.map(course => ({
     id: course.id || 'crs_' + Math.random().toString(36).substring(2, 9),
     code: (course.code || '').trim().toUpperCase(),
@@ -173,7 +173,7 @@ export async function signUp(email, password, profileData = {}) {
       faculty: profileData.faculty || 'Trường Kỹ thuật và Công nghệ - ĐH Trà Vinh',
       years: profileData.years || '2022 - 2026',
       email: email,
-      avatar: '🎓'
+      avatar: '<i class="ph-fill ph-graduation-cap"></i>'
     };
     localStorage.setItem('tvu_student_profile', JSON.stringify(studentProfile));
 
@@ -207,7 +207,7 @@ export async function signIn(identifier, password) {
   // If user entered MSSV / Username without '@' (e.g., 110123456 or MSSV)
   if (targetEmail && !targetEmail.includes('@')) {
     const candidateEmail = `${targetEmail.toLowerCase()}@st.tvu.edu.vn`;
-    
+
     // Attempt 1: Direct TVU student email format (mssv@st.tvu.edu.vn)
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -227,7 +227,7 @@ export async function signIn(identifier, password) {
           faculty: meta.faculty || 'Trường Kỹ thuật và Công nghệ - ĐH Trà Vinh',
           years: meta.years || '2022 - 2026',
           email: data.user.email,
-          avatar: '🎓'
+          avatar: '<i class="ph-fill ph-graduation-cap"></i>'
         };
         localStorage.setItem('tvu_student_profile', JSON.stringify(syncProfile));
         await saveProfileToSupabase(syncProfile);
@@ -280,7 +280,7 @@ export async function signIn(identifier, password) {
         faculty: meta.faculty || 'Trường Kỹ thuật và Công nghệ - ĐH Trà Vinh',
         years: meta.years || '2022 - 2026',
         email: data.user.email,
-        avatar: '🎓'
+        avatar: '<i class="ph-fill ph-graduation-cap"></i>'
       };
       localStorage.setItem('tvu_student_profile', JSON.stringify(syncProfile));
 
@@ -304,21 +304,21 @@ export async function signIn(identifier, password) {
 function formatSupabaseError(error) {
   const msg = error.message || '';
   if (msg.includes('Email not confirmed')) {
-    return '⚠️ Email chưa được xác thực! Hướng dẫn sửa: Vào Supabase Dashboard -> Authentication -> Providers -> Email -> Tắt nút [Confirm email].';
+    return '<i class="ph-bold ph-warning"></i> Email chưa được xác thực! Hướng dẫn sửa: Vào Supabase Dashboard -> Authentication -> Providers -> Email -> Tắt nút [Confirm email].';
   }
   if (msg.includes('Invalid login credentials')) {
-    return '❌ Mật khẩu hoặc Email không chính xác, hoặc tài khoản chưa được tạo.';
+    return '<i class="ph-bold ph-x-circle"></i> Mật khẩu hoặc Email không chính xác, hoặc tài khoản chưa được tạo.';
   }
   if (msg.includes('User already registered')) {
-    return '⚠️ Email này đã được đăng ký trước đó. Vui lòng bấm "Đăng nhập"!';
+    return '<i class="ph-bold ph-warning"></i> Email này đã được đăng ký trước đó. Vui lòng bấm "Đăng nhập"!';
   }
   if (msg.includes('Password should be at least')) {
-    return '⚠️ Mật khẩu phải có tối thiểu 6 ký tự!';
+    return '<i class="ph-bold ph-warning"></i> Mật khẩu phải có tối thiểu 6 ký tự!';
   }
   if (msg.includes('Failed to fetch') || msg.includes('NetworkError')) {
     return '🚫 Lỗi kết nối mạng hoặc CORS! Hãy chắc chắn bạn đang mở trang qua localhost (http://localhost:8080) thay vì mở trực tiếp file://.';
   }
-  return `❌ Lỗi Supabase: ${msg}`;
+  return `<i class="ph-bold ph-x-circle"></i> Lỗi Supabase: ${msg}`;
 }
 
 /**
@@ -326,7 +326,7 @@ function formatSupabaseError(error) {
  */
 function checkProtocolWarning() {
   if (window.location.protocol === 'file:') {
-    showToast('⚠️ Bạn đang mở trang web dạng file:// trực tiếp. Vui lòng chạy qua web server (http://localhost:8080) để không bị chặn kết nối Supabase!', 'danger');
+    showToast('<i class="ph-bold ph-warning"></i> Bạn đang mở trang web dạng file:// trực tiếp. Vui lòng chạy qua web server (http://localhost:8080) để không bị chặn kết nối Supabase!', 'danger');
   }
 }
 
@@ -339,7 +339,7 @@ export async function signOut() {
   } catch (err) {
     console.warn('Supabase SignOut Warning:', err);
   }
-  
+
   // PURGE ALL USER DATA ON LOGOUT
   clearAllLocalData();
   return true;
@@ -354,7 +354,7 @@ export async function saveGrades(gradesArray) {
 
   const user = await getCurrentUser();
   if (!user) {
-    console.warn('⚡ Đã lưu cục bộ. Để đồng bộ lên Supabase Cloud, vui lòng Đăng nhập ở phần Cài đặt.');
+    console.warn('<i class="ph-bold ph-lightning"></i> Đã lưu cục bộ. Để đồng bộ lên Supabase Cloud, vui lòng Đăng nhập ở phần Cài đặt.');
     return gradesArray;
   }
 
@@ -481,15 +481,15 @@ export function showToast(message, type = 'success') {
   const toast = document.createElement('div');
   toast.className = `toast toast-${type}`;
   toast.innerHTML = `
-    <span>${type === 'success' ? '✓' : '⚠️'}</span>
+    <span>${type === 'success' ? '<i class="ph-bold ph-check"></i>' : '<i class="ph-bold ph-warning"></i>'}</span>
     <span>${message}</span>
   `;
 
   container.appendChild(toast);
+
+  // PERF: CSS class-based animation instead of inline styles CSSOM thrashing
   setTimeout(() => {
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateX(100%)';
-    toast.style.transition = 'all 0.3s ease';
-    setTimeout(() => toast.remove(), 300);
+    toast.classList.add('toast-exit');
+    toast.addEventListener('animationend', () => toast.remove(), { once: true });
   }, 4500);
 }

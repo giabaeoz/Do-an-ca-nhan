@@ -9,6 +9,7 @@ import { convertGrade10To4, getTotalRequiredCredits } from '../config.js';
 let realCourses = [];
 let draftCourses = [];
 let activeSemesterFilter = 'ALL';
+let predictDebounceTimer = null;
 
 document.addEventListener('DOMContentLoaded', () => {
   initPredictPage();
@@ -20,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
  */
 function initPredictPage() {
   realCourses = getLocalCourses();
-  
+
   // Create deep copy of real courses so sandbox edits never alter real storage
   draftCourses = realCourses.map(c => {
     const nonGPA = isNonGPACourse(c);
@@ -171,7 +172,7 @@ function renderPredictSemesterTables() {
 
   // Calculate real summaries and predictive summaries per semester
   const realSummaries = calculateSemesterSummaries(realCourses);
-  
+
   // Calculate predictive summaries with current draft scores
   const evalDraftCourses = draftCourses.map(c => {
     const activeScore = c.isGraded ? c.score10 : c.predictedScore10;
@@ -221,9 +222,9 @@ function renderPredictSemesterTables() {
               <svg class="svg-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
               ${sem.semester.toUpperCase()}
             </h3>
-            ${hasUnfinished 
-              ? `<span class="badge badge-warning" style="font-size: 0.75rem; font-weight: 700;">Cần dự đoán</span>` 
-              : `<span class="badge badge-success" style="font-size: 0.75rem; font-weight: 700;">Đã có điểm</span>`}
+            ${hasUnfinished
+        ? `<span class="badge badge-warning" style="font-size: 0.75rem; font-weight: 700;">Cần dự đoán</span>`
+        : `<span class="badge badge-success" style="font-size: 0.75rem; font-weight: 700;">Đã có điểm</span>`}
           </div>
           <span class="badge badge-secondary" style="font-weight: 700;">${sem.courses.length} Học phần</span>
         </div>
@@ -264,11 +265,11 @@ function renderPredictSemesterTables() {
           </td>
           
           <td style="padding: 0.75rem; text-align: center;">
-            ${isNonGPA 
-              ? `<span class="badge badge-secondary" style="font-weight: 700;">🔒 Miễn học (${c.letter || 'M'})</span>`
-              : (isCompleted 
-                ? `<span class="badge badge-success" style="font-weight: 700;">🔒 ${c.score10.toFixed(1)} (${c.letter})</span>` 
-                : `<span class="badge badge-secondary" style="font-size: 0.75rem; opacity: 0.8;">Chưa có</span>`)}
+            ${isNonGPA
+          ? `<span class="badge badge-secondary" style="font-weight: 700;">🔒 Miễn học (${c.letter || 'M'})</span>`
+          : (isCompleted
+            ? `<span class="badge badge-success" style="font-weight: 700;">🔒 ${c.score10.toFixed(1)} (${c.letter})</span>`
+            : `<span class="badge badge-secondary" style="font-size: 0.75rem; opacity: 0.8;">Chưa có</span>`)}
           </td>
           
           <td style="padding: 0.75rem; text-align: center;">
@@ -321,7 +322,8 @@ function renderPredictSemesterTables() {
     `;
   });
 
-  container.innerHTML = html;
+  container.innerHTML = '';
+  container.insertAdjacentHTML('beforeend', html);
 
   // Attach real-time input event listeners for prediction inputs
   const inputs = container.querySelectorAll('.predict-score-input');
@@ -381,7 +383,14 @@ function handleScoreInputChange(e) {
     elScale4.textContent = scale4Text;
   }
 
-  // Update Top KPI Cards & Semester Summaries
+  // Update Top KPI Cards & Semester Summaries with Debounce to avoid lag
+  clearTimeout(predictDebounceTimer);
+  predictDebounceTimer = setTimeout(() => {
+    updatePredictiveKPIs(course);
+  }, 300);
+}
+
+function updatePredictiveKPIs(course) {
   const realMetrics = calculateTVUGPA(realCourses);
   const draftMetrics = calculatePredictiveGPA(draftCourses);
   const totalRequiredCredits = getTotalRequiredCredits();

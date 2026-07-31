@@ -18,6 +18,8 @@
 
   <!-- Chart.js CDN -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
 </head>
 
 <body>
@@ -89,7 +91,7 @@
       <div class="sidebar-footer">
         <button type="button" class="btn btn-secondary theme-toggle-btn"
           style="width: 100%; justify-content: center; gap: 0.5rem; font-weight: 700;">
-          🌓 Giao diện Tối/Sáng
+          <i class="ph-fill ph-moon-stars"></i> Giao diện Tối/Sáng
         </button>
       </div>
     </aside>
@@ -160,7 +162,7 @@
         <!-- Top visual KPI Cards -->
         <section class="metrics-grid">
           <div class="card metric-card">
-            <div class="metric-icon">🎓</div>
+            <div class="metric-icon"><i class="ph-fill ph-graduation-cap"></i></div>
             <div class="metric-info">
               <span class="metric-label">GPA Hệ 4</span>
               <span class="metric-value" id="metric-gpa4">0.00</span>
@@ -169,7 +171,7 @@
           </div>
 
           <div class="card metric-card">
-            <div class="metric-icon">⭐</div>
+            <div class="metric-icon"><i class="ph-fill ph-star"></i></div>
             <div class="metric-info">
               <span class="metric-label">GPA Hệ 10</span>
               <span class="metric-value" id="metric-gpa10">0.00</span>
@@ -178,7 +180,7 @@
           </div>
 
           <div class="card metric-card">
-            <div class="metric-icon">📚</div>
+            <div class="metric-icon"><i class="ph-fill ph-books"></i></div>
             <div class="metric-info">
               <span class="metric-label">Tín chỉ tích lũy</span>
               <span class="metric-value" id="metric-credits">0 / 150</span>
@@ -284,105 +286,9 @@
 
   </div>
 
-  <!-- ============================
-       Login Modal (Hiện khi vào trang, có thể đóng)
-       ============================ -->
-  <div id="login-gate" class="hidden">
-    <div class="login-gate-card">
-
-      <!-- Nút đóng -->
-      <button type="button" id="gate-close-btn" class="login-gate-close"
-        title="Đóng và dùng trang bình thường">✕</button>
-
-      <!-- Logo & Brand -->
-      <div class="login-gate-logo">
-        <img src="assets/images/logo.jpg" alt="TVU GPA Helper Logo">
-        <h2>GPA Helper</h2>
-        <p>Trà Vinh University</p>
-      </div>
-
-      <!-- Tab Switcher -->
-      <div class="login-gate-tabs">
-        <button type="button" class="login-gate-tab active" id="gate-tab-login">🔑 Đăng nhập</button>
-        <button type="button" class="login-gate-tab" id="gate-tab-register">📝 Đăng ký Mới</button>
-      </div>
-
-      <!-- Form Đăng nhập -->
-      <div id="gate-form-login" class="login-gate-form active">
-        <form id="gate-login-form" novalidate>
-          <div class="form-group">
-            <label class="form-label">MSSV / Email Sinh viên *</label>
-            <input type="text" id="gate-login-email" class="form-input"
-              placeholder="1100123456 hoặc email@st.tvu.edu.vn" required>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Mật khẩu *</label>
-            <input type="password" id="gate-login-password" class="form-input" placeholder="••••••••" required
-              minlength="6">
-          </div>
-          <button type="submit" id="gate-btn-login" class="login-gate-btn-primary">
-            🔑 Đăng nhập ngay
-          </button>
-        </form>
-
-        <div class="login-gate-divider">hoặc tiếp tục không cần tài khoản</div>
-
-        <button type="button" id="gate-btn-guest" class="login-gate-guest-btn">
-          👤 Dùng trang mà không cần đăng nhập
-        </button>
-      </div>
-
-      <!-- Form Đăng ký -->
-      <div id="gate-form-register" class="login-gate-form">
-        <form id="gate-register-form" novalidate>
-          <div class="login-gate-reg-grid">
-            <div class="form-group">
-              <label class="form-label">Họ và Tên *</label>
-              <input type="text" id="gate-reg-name" class="form-input" placeholder="Nguyễn Văn A" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">MSSV *</label>
-              <input type="text" id="gate-reg-username" class="form-input" placeholder="1100123456" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Email Sinh viên *</label>
-              <input type="email" id="gate-reg-email" class="form-input" placeholder="email@st.tvu.edu.vn" required>
-            </div>
-            <div class="form-group">
-              <label class="form-label">Lớp học</label>
-              <input type="text" id="gate-reg-class" class="form-input" placeholder="DA23CNTT">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Mật khẩu *</label>
-              <input type="password" id="gate-reg-password" class="form-input" placeholder="Tối thiểu 6 ký tự" required
-                minlength="6">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Xác nhận mật khẩu *</label>
-              <input type="password" id="gate-reg-confirm" class="form-input" placeholder="Nhập lại mật khẩu" required
-                minlength="6">
-            </div>
-          </div>
-          <div class="form-group" style="margin-top: 0.25rem;">
-            <label class="form-label">Chuyên ngành</label>
-            <input type="text" id="gate-reg-major" class="form-input" placeholder="Công nghệ thông tin">
-          </div>
-          <button type="submit" id="gate-btn-register" class="login-gate-btn-primary">
-            ⚡ Tạo Tài khoản Sinh viên
-          </button>
-        </form>
-
-        <button type="button" id="gate-btn-guest-reg" class="login-gate-guest-btn">
-          👤 Dùng trang mà không cần đăng nhập
-        </button>
-      </div>
-
-    </div>
-  </div>
 
   <script type="module" src="js/layout.js"></script>
   <script type="module" src="js/pages/index.js"></script>
-  <script type="module" src="js/auth-gate.js"></script>
 </body>
 
 </html>
